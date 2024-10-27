@@ -1,0 +1,14 @@
+{
+  "header": {
+    "userList": "User List",
+    "userProfile": "User Profile"
+  },
+  "userList": {
+    "title": "User List"
+  },
+  "userProfile": {
+    "title": "User Profile",
+    "name": "Name",
+    "email": "Email"
+  }
+}
