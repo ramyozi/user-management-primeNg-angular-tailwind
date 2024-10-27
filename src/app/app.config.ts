@@ -9,6 +9,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { routes } from './app.routes';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {BrowserModule} from '@angular/platform-browser';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -20,6 +21,7 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     importProvidersFrom([
       BrowserAnimationsModule,
+      BrowserModule,
       TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,

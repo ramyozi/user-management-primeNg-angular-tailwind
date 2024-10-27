@@ -6,11 +6,12 @@ import {BadgeModule} from 'primeng/badge';
 import {AvatarModule} from 'primeng/avatar';
 import {InputTextModule} from 'primeng/inputtext';
 import {MenubarModule} from 'primeng/menubar';
-import {NgIf} from '@angular/common';
+import {CommonModule, NgIf, NgOptimizedImage} from '@angular/common';
 import {PrimeNGConfig} from 'primeng/api';
 import {FormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {BrowserModule} from '@angular/platform-browser';
+import {AppService} from '../../app.service';
 
 @Component({
   selector: 'app-header',
@@ -23,21 +24,35 @@ import {BrowserModule} from '@angular/platform-browser';
     AvatarModule,
     InputTextModule,
     MenubarModule,
-    NgIf,
-    FormsModule
+    CommonModule,
+    FormsModule,
+    NgOptimizedImage
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
   languages = [
-    { name: 'English', code: 'en' },
     { name: 'French', code: 'fr' },
+    { name: 'English', code: 'us' },
   ];
 
-  selectedLanguage: any = this.languages[0];
+  constructor(private primengConfig: PrimeNGConfig, private translateService: TranslateService, private appService: AppService) {}
 
-  constructor(private primengConfig: PrimeNGConfig, private translateService: TranslateService) {}
+  themes = [
+    {
+      id: 'lara-light-blue',
+      label: 'Lara Light Blue'
+    },
+    {
+      id: 'luna-green',
+      label: 'Luna Green'
+    },
+    {
+      id: 'md-dark-deeppurple',
+      label: 'MD Dark Deeppurple'
+    }
+  ];
 
   items = [
     {
@@ -51,6 +66,13 @@ export class HeaderComponent {
       routerLink: ['/user-profile']
     }
     ]
+
+  selectedLanguage: { name: string; code: string } = this.languages[0];
+  selectedTheme: { id: string; label: string } = this.themes[0];
+
+  changeTheme(themeId: string) {
+    this.appService.switchTheme(themeId);
+  }
 
   switchLanguage(langCode: string) {
     this.translateService.use(langCode);

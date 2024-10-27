@@ -41,12 +41,43 @@
   <ng-template pTemplate="end">
     <div class="flex align-items-center gap-2">
       <p-dropdown
+        [(ngModel)]="selectedLanguage"
         [options]="languages"
         optionLabel="name"
         (onChange)="switchLanguage($event.value.code)"
-        [showClear]="true"
+        [showClear]="false"
+        loading="false"
         placeholder="Language">
+        <ng-template pTemplate="selectedItem">
+          <div class="flex align-items-center gap-2" *ngIf="selectedLanguage">
+            <img
+              [src]="'https://flagsapi.com/' + selectedLanguage.code.toUpperCase() + '/flat/32.png'"
+              style="width: 18px"
+              alt="flag"
+            />
+            <div>{{ selectedLanguage.name }}</div>
+          </div>
+        </ng-template>
+
+        <ng-template let-country pTemplate="item">
+          <div class="flex align-items-center gap-2">
+            <img
+              [src]="'https://flagsapi.com/' + country.code.toUpperCase() + '/flat/32.png'"
+              style="width: 18px"
+              alt="flag"
+            />
+            <div>{{ country.name }}</div>
+          </div>
+        </ng-template>
+
       </p-dropdown>
+      <p-dropdown
+        [options]="themes"
+        [(ngModel)]="selectedTheme"
+        (onChange)="changeTheme(selectedTheme.id)"
+        styleClass="mb-3"
+      ></p-dropdown>
+
       <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle"></p-avatar>
     </div>
   </ng-template>
